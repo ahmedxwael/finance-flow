@@ -1,7 +1,11 @@
+import { FeaturesSection, GetStartedSection, HeroSection } from "../components";
+
 export function HomePage() {
   return (
-    <>
-      <h1>HomePage</h1>
-    </>
+    <div className="flex flex-col">
+      <HeroSection />
+      <FeaturesSection />
+      <GetStartedSection />
+    </div>
   );
 }
