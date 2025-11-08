@@ -7,22 +7,23 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { expenses } from "./expense";
-import { incomes } from "./income";
-import { users } from "./user";
+import { income } from "./income";
+import { user } from "./user";
 
-export const categories = pgTable("categories", {
+export const category = pgTable("categories", {
   id: serial("id").primaryKey(),
   userId: integer().notNull(),
-  name: varchar({ length: 255 }).notNull().default(""),
+  name: varchar({ length: 255 }).notNull(),
+  type: varchar({ length: 255, enum: ["INCOME", "EXPENSE"] }).notNull(),
   createdAt: timestamp().defaultNow(),
   updatedAt: timestamp().defaultNow(),
 });
 
-export const categoryRelations = relations(categories, ({ many, one }) => ({
-  incomes: many(incomes),
+export const categoryRelations = relations(category, ({ many, one }) => ({
+  incomes: many(income),
   expenses: many(expenses),
-  user: one(users, {
-    fields: [categories.userId],
-    references: [users.id],
+  user: one(user, {
+    fields: [category.userId],
+    references: [user.id],
   }),
 }));

@@ -4,7 +4,8 @@ import * as schema from "./schema";
 
 // Create the database client
 
-const client = postgres(import.meta.env.VITE_DATABASE_URL as string);
+console.log("db url", import.meta.env.VITE_DATABASE_URL);
+const client = postgres(import.meta.env.VITE_DATABASE_URL!);
 
 // Export the database instance
 export const db = drizzle({

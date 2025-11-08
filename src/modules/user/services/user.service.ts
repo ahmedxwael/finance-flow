@@ -1,5 +1,5 @@
 import { db } from "@/drizzle/db";
-import { users } from "@/drizzle/schema/user";
+import { user } from "@/drizzle/schema/user";
 import { eq } from "drizzle-orm";
 import type { User } from "../types";
 
@@ -18,7 +18,7 @@ export async function getUserService(email: string) {
   }
 
   const user = await db.query.users.findFirst({
-    where: eq(users.email, email),
+    where: eq(user.email, email),
   });
 
   if (!user) {
@@ -52,26 +52,26 @@ export async function createUserService({ user }: { user: User }) {
   }
 
   const newUser = await db
-    .insert(users)
+    .insert(user)
     .values({
       email: user.email!,
       name: user.name!,
       image: user.image || `https://ui-avatars.com/api/?name=${user.name}`,
     })
     .returning({
-      id: users.id,
-      email: users.email,
-      name: users.name,
-      role: users.role,
-      createdAt: users.createdAt,
-      updatedAt: users.updatedAt,
-      balance: users.balance,
-      currency: users.currency,
-      newUser: users.newUser,
-      incomesCount: users.incomesCount,
-      expensesCount: users.expensesCount,
-      emailVerified: users.emailVerified,
-      image: users.image,
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      balance: user.balance,
+      currency: user.currency,
+      newUser: user.newUser,
+      incomesCount: user.incomesCount,
+      expensesCount: user.expensesCount,
+      emailVerified: user.emailVerified,
+      image: user.image,
     });
 
   return {
@@ -96,12 +96,12 @@ export async function updateUserService({
 }) {
   try {
     const updatedUser = await db
-      .update(users)
+      .update(user)
       .set({
         ...data,
         emailVerified: data.emailVerified ? true : false,
       })
-      .where(eq(users.id, parseInt(id)))
+      .where(eq(user.id, parseInt(id)))
       .returning();
 
     return {

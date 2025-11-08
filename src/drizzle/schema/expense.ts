@@ -6,9 +6,9 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { categories } from "./category";
-import { goals } from "./goal";
-import { users } from "./user";
+import { category } from "./category";
+import { goal } from "./goal";
+import { user } from "./user";
 
 export const expenses = pgTable("expenses", {
   id: serial("id").primaryKey(),
@@ -23,16 +23,16 @@ export const expenses = pgTable("expenses", {
 });
 
 export const expenseRelations = relations(expenses, ({ one }) => ({
-  user: one(users, {
+  user: one(user, {
     fields: [expenses.userId],
-    references: [users.id],
+    references: [user.id],
   }),
-  category: one(categories, {
+  category: one(category, {
     fields: [expenses.categoryId],
-    references: [categories.id],
+    references: [category.id],
   }),
-  goal: one(goals, {
+  goal: one(goal, {
     fields: [expenses.goalId],
-    references: [goals.id],
+    references: [goal.id],
   }),
 }));

@@ -1,3 +1,4 @@
+export * from "./allocation";
 export * from "./category";
 export * from "./expense";
 export * from "./goal";
