@@ -1,6 +1,6 @@
 /**
  * Example: How to auto-update percentage when creating or updating goals
- * 
+ *
  * This file shows how to use the calculateGoalPercentage utility function
  * to automatically calculate and update the percentage field.
  */
@@ -31,10 +31,7 @@ export function createGoalExample(goalData: {
 }
 
 // Example: When updating a goal
-export function updateGoalExample(
-  currentAmount: number,
-  targetAmount: number
-) {
+export function updateGoalExample(currentAmount: number, targetAmount: number) {
   // Auto-calculate percentage
   const percentage = calculateGoalPercentage(currentAmount, targetAmount);
 
@@ -49,12 +46,12 @@ export function updateGoalExample(
 
 /**
  * Usage in a service:
- * 
+ *
  * import { calculateGoalPercentage } from "@/modules/goals/utils";
  * import { db } from "@/drizzle/db";
  * import { goal } from "@/drizzle/schema";
  * import { eq } from "drizzle-orm";
- * 
+ *
  * // When creating:
  * const percentage = calculateGoalPercentage(currentAmount, targetAmount);
  * await db.insert(goal).values({
@@ -62,7 +59,7 @@ export function updateGoalExample(
  *   percentage,
  *   isCompleted: percentage >= 100,
  * });
- * 
+ *
  * // When updating:
  * const percentage = calculateGoalPercentage(newCurrentAmount, targetAmount);
  * await db
@@ -75,4 +72,3 @@ export function updateGoalExample(
  *   })
  *   .where(eq(goal.id, goalId));
  */
-

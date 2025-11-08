@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import {
+  index,
   integer,
   pgTable,
   serial,
@@ -10,14 +11,23 @@ import { expenses } from "./expense";
 import { income } from "./income";
 import { user } from "./user";
 
-export const category = pgTable("categories", {
-  id: serial("id").primaryKey(),
-  userId: integer().notNull(),
-  name: varchar({ length: 255 }).notNull(),
-  type: varchar({ length: 255, enum: ["INCOME", "EXPENSE"] }).notNull(),
-  createdAt: timestamp().defaultNow(),
-  updatedAt: timestamp().defaultNow(),
-});
+export const category = pgTable(
+  "categories",
+  {
+    id: serial("id").primaryKey(),
+    userId: integer("userId")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    name: varchar({ length: 255 }).notNull(),
+    type: varchar({ length: 255, enum: ["INCOME", "EXPENSE"] }).notNull(),
+    createdAt: timestamp().defaultNow(),
+    updatedAt: timestamp().defaultNow(),
+  },
+  (table) => ({
+    userIdIdx: index("categories_userId_idx").on(table.userId),
+    typeIdx: index("categories_type_idx").on(table.type),
+  })
+);
 
 export const categoryRelations = relations(category, ({ many, one }) => ({
   incomes: many(income),
