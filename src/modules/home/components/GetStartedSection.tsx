@@ -28,9 +28,9 @@ export function GetStartedSection() {
           <img
             src={wavyLine}
             alt="line-wave"
-            className="absolute top-0 left-0 w-full h-full hidden lg:block"
+            className="absolute z-0 top-0 left-0 w-full h-full hidden lg:block"
           />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid relative gap-6 md:grid-cols-2 lg:grid-cols-4">
             {steps.map((step) => (
               <div key={step.number} className="relative">
                 <Card className="h-full">
@@ -49,7 +49,7 @@ export function GetStartedSection() {
               </div>
             ))}
           </div>
-          <div className="mt-12 text-center">
+          <div className="mt-12 relative text-center">
             <Button asChild size="lg">
               <BaseLink to={URLS.auth.signUp}>
                 Start Your Journey
