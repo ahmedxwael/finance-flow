@@ -127,13 +127,13 @@ function renderField<T extends FieldValues>(
 
   switch (fieldConfig.type) {
     case "text":
-      return <TextInput {...commonProps} {...field} register={field} />;
+      return <TextInput {...commonProps} {...field} />;
     case "email":
-      return <EmailInput {...commonProps} {...field} register={field} />;
+      return <EmailInput {...commonProps} {...field} />;
     case "password":
-      return <PasswordInput {...commonProps} {...field} register={field} />;
+      return <PasswordInput {...commonProps} {...field} />;
     case "number":
-      return <IntegerInput {...commonProps} {...field} register={field} />;
+      return <IntegerInput {...commonProps} {...field} />;
     case "textarea":
       return (
         <TextAreaInput {...commonProps} {...field} rows={fieldConfig.rows} />
@@ -221,7 +221,11 @@ export function Form<T extends FieldValues = FieldValues>({
 
   return (
     <FormComponent {...form}>
-      <form onSubmit={handleSubmit} className={formClassName} noValidate>
+      <form
+        onSubmit={handleSubmit}
+        onChange={() => form.clearErrors()}
+        className={formClassName}
+        noValidate>
         <div className={cn("flex flex-col gap-4", className)}>
           {fields.map((fieldConfig) => (
             <FormField

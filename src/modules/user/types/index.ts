@@ -7,8 +7,7 @@ export type UserTotalsResponse = {
     totalExpenses: AsNumber | null;
     balance: AsNumber;
   } | null;
-  message: string;
-  error: Error | null;
+  error: string | null;
 };
 
 export type User = {

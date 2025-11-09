@@ -1,13 +1,12 @@
-export async function asyncHandler<T>(handler: (...T: any) => Promise<T>) {
-  return async (...T: any) => {
+export function asyncHandler<T>(handler: (...args: any) => Promise<T>) {
+  return async (...args: any) => {
     try {
-      return await handler(...T);
+      return await handler(...args);
     } catch (error: any) {
       console.log("error", error);
       return {
         data: null,
-        message: `Something went wrong: ${error.message}`,
-        error: error,
+        error: `Something went wrong: ${error.message}`,
       };
     }
   };

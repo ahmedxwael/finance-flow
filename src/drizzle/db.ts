@@ -3,8 +3,6 @@ import postgres from "postgres";
 import * as schema from "./schema";
 
 // Create the database client
-
-console.log("db url", import.meta.env.VITE_DATABASE_URL);
 const client = postgres(import.meta.env.VITE_DATABASE_URL!);
 
 // Export the database instance

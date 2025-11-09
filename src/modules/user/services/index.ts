@@ -11,8 +11,7 @@ export const getUserTotalsService = asyncHandler<UserTotalsResponse>(
     if (!userId) {
       return {
         data: null,
-        message: "User ID is required",
-        error: new Error("User ID is required"),
+        error: "User ID is required",
       };
     }
 
@@ -27,7 +26,6 @@ export const getUserTotalsService = asyncHandler<UserTotalsResponse>(
 
     return {
       data: totals[0],
-      message: "User totals fetched successfully",
       error: null,
     };
   }

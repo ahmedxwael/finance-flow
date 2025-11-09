@@ -1,5 +1,6 @@
 import { db } from "@/drizzle/db";
 import { user } from "@/drizzle/schema/user";
+import type { SignUpData } from "@/modules/auth/types";
 import { eq } from "drizzle-orm";
 import type { User } from "../types";
 
@@ -42,41 +43,18 @@ export async function getUserService(email: string) {
  * @param account
  * @returns
  */
-export async function createUserService({ user }: { user: User }) {
-  if (!user) {
+export async function createUserService(data: SignUpData) {
+  if (!data.email || !data.password || !data.name) {
     return {
       data: null,
-      message: "User is required",
-      error: "User is required",
+      error: "Email, password and name are required",
     };
   }
 
-  const newUser = await db
-    .insert(user)
-    .values({
-      email: user.email!,
-      name: user.name!,
-      image: user.image || `https://ui-avatars.com/api/?name=${user.name}`,
-    })
-    .returning({
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      role: user.role,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-      balance: user.balance,
-      currency: user.currency,
-      newUser: user.newUser,
-      incomesCount: user.incomesCount,
-      expensesCount: user.expensesCount,
-      emailVerified: user.emailVerified,
-      image: user.image,
-    });
+  const newUser = await db.insert(user).values(data).returning();
 
   return {
     data: newUser[0],
-    message: "User created successfully!",
     error: null,
   };
 }

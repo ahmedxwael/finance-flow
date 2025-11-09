@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1762631389108,
-      "tag": "0000_first_charles_xavier",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1762633340972,
-      "tag": "0001_sticky_speed",
+      "when": 1762719662301,
+      "tag": "0000_high_human_torch",
       "breakpoints": true
     }
   ]

@@ -9,6 +9,10 @@ export type BaseInputProps = ComponentProps<"input"> & {
   error?: string;
   required?: boolean;
   register?: UseFormRegisterReturn;
+  value?: string | number | readonly string[];
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  name?: string;
 };
 
 export function BaseInput({
@@ -18,6 +22,10 @@ export function BaseInput({
   error,
   required,
   register,
+  value,
+  onChange,
+  onBlur,
+  name,
   ...props
 }: BaseInputProps) {
   return (
@@ -27,7 +35,16 @@ export function BaseInput({
           {label} {required && <span className="text-destructive">*</span>}
         </Label>
       )}
-      <Input id={id} type={type} register={register} {...props} />
+      <Input
+        id={id}
+        type={type}
+        register={register}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        name={name}
+        {...props}
+      />
     </div>
   );
 }

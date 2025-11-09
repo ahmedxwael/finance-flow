@@ -9,7 +9,6 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { account } from "./account";
 import { allocation } from "./allocation";
 import { category } from "./category";
 import { expense } from "./expense";
@@ -28,7 +27,7 @@ export const user = pgTable(
     provider: varchar({ length: 50 }).default("local"),
     createdAt: timestamp().defaultNow(),
     updatedAt: timestamp().defaultNow(),
-    balance: integer().notNull().default(0),
+    balance: integer().default(0),
     totalIncomes: integer().default(0),
     totalExpenses: integer().default(0),
     totalSavings: integer().default(0),
@@ -42,7 +41,7 @@ export const user = pgTable(
 );
 
 export const userRelations = relations(user, ({ many }) => ({
-  accounts: many(account),
+  // accounts: many(account),
   incomes: many(income),
   expenses: many(expense),
   goals: many(goal),

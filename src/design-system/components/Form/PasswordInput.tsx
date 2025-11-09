@@ -16,6 +16,10 @@ export function PasswordInput({
   error,
   required,
   register,
+  value,
+  onChange,
+  onBlur,
+  name,
   ...props
 }: PasswordInputProps) {
   const [type, setType] = useState<Type>("password");
@@ -28,7 +32,16 @@ export function PasswordInput({
         </Label>
       )}
       <div className="flex items-center relative gap-2">
-        <Input id={id} type={type} register={register} {...props} />
+        <Input
+          id={id}
+          type={type}
+          register={register}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          name={name}
+          {...props}
+        />
         <Button
           variant="ghost"
           type="button"

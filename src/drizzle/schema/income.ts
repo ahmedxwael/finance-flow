@@ -7,7 +7,6 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { account } from "./account";
 import { category } from "./category";
 import { goal } from "./goal";
 import { user } from "./user";
@@ -19,9 +18,9 @@ export const income = pgTable(
     userId: integer("userId")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    accountId: integer("accountId").references(() => account.id, {
-      onDelete: "set null",
-    }),
+    // accountId: integer("accountId").references(() => account.id, {
+    //   onDelete: "set null",
+    // }),
     amount: integer().notNull(),
     title: varchar({ length: 255 }).notNull(),
     note: varchar({ length: 255 }).notNull(),
@@ -37,7 +36,7 @@ export const income = pgTable(
   },
   (table) => ({
     userIdIdx: index("incomes_userId_idx").on(table.userId),
-    accountIdIdx: index("incomes_accountId_idx").on(table.accountId),
+    // accountIdIdx: index("incomes_accountId_idx").on(table.accountId),
     categoryIdIdx: index("incomes_categoryId_idx").on(table.categoryId),
     goalIdIdx: index("incomes_goalId_idx").on(table.goalId),
     transactionDateIdx: index("incomes_transactionDate_idx").on(
@@ -51,10 +50,10 @@ export const incomeRelations = relations(income, ({ one }) => ({
     fields: [income.userId],
     references: [user.id],
   }),
-  account: one(account, {
-    fields: [income.accountId],
-    references: [account.id],
-  }),
+  // account: one(account, {
+  //   fields: [income.accountId],
+  //   references: [account.id],
+  // }),
   category: one(category, {
     fields: [income.categoryId],
     references: [category.id],
