@@ -39,7 +39,6 @@ export function PasswordInput({
           {type === "password" ? <Eye /> : <EyeClosed />}
         </Button>
       </div>
-      {error && <span className="text-destructive text-sm">{error}</span>}
     </div>
   );
 }

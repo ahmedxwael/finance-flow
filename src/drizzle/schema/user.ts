@@ -12,7 +12,7 @@ import {
 import { account } from "./account";
 import { allocation } from "./allocation";
 import { category } from "./category";
-import { expenses } from "./expense";
+import { expense } from "./expense";
 import { goal } from "./goal";
 import { income } from "./income";
 
@@ -22,18 +22,19 @@ export const user = pgTable(
     id: serial("id").primaryKey(),
     name: varchar({ length: 255 }).notNull(),
     email: varchar({ length: 255 }).notNull().unique(),
-    password: varchar({ length: 255 }),
-    role: varchar({ length: 50, enum: ["USER", "ADMIN"] })
-      .notNull()
-      .default("USER"),
+    password: varchar({ length: 255 }).notNull(),
+    role: varchar({ length: 50, enum: ["USER", "ADMIN"] }).default("USER"),
     image: varchar({ length: 500 }),
     provider: varchar({ length: 50 }).default("local"),
-    createdAt: timestamp().notNull().defaultNow(),
-    updatedAt: timestamp().notNull().defaultNow(),
+    createdAt: timestamp().defaultNow(),
+    updatedAt: timestamp().defaultNow(),
     balance: integer().notNull().default(0),
-    currency: varchar({ length: 255 }).notNull().default(Currencies.POUND),
-    newUser: boolean().notNull().default(true),
-    emailVerified: boolean().notNull().default(false),
+    totalIncomes: integer().default(0),
+    totalExpenses: integer().default(0),
+    totalSavings: integer().default(0),
+    currency: varchar({ length: 255 }).default(Currencies.POUND),
+    newUser: boolean().default(true),
+    emailVerified: boolean().default(false),
   },
   (table) => ({
     emailIdx: index("users_email_idx").on(table.email),
@@ -43,7 +44,7 @@ export const user = pgTable(
 export const userRelations = relations(user, ({ many }) => ({
   accounts: many(account),
   incomes: many(income),
-  expenses: many(expenses),
+  expenses: many(expense),
   goals: many(goal),
   allocations: many(allocation),
   categories: many(category),

@@ -1,9 +1,10 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
+import { SignInPage, SignUpPage } from "./modules/auth/pages";
 import { DashboardPage } from "./modules/dashboard/pages";
 import { HomePage } from "./modules/home/pages";
-import { CommonLayout } from "./modules/layouts";
+import { AuthLayout, CommonLayout } from "./modules/layouts";
 import { URLS } from "./shared/urls";
 
 const router = createBrowserRouter([
@@ -17,6 +18,19 @@ const router = createBrowserRouter([
       {
         path: URLS.dashboard,
         element: <DashboardPage />,
+      },
+    ],
+  },
+  {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: URLS.auth.signIn,
+        element: <SignInPage />,
+      },
+      {
+        path: URLS.auth.signUp,
+        element: <SignUpPage />,
       },
     ],
   },

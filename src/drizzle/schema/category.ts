@@ -7,7 +7,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { expenses } from "./expense";
+import { expense } from "./expense";
 import { income } from "./income";
 import { user } from "./user";
 
@@ -31,7 +31,7 @@ export const category = pgTable(
 
 export const categoryRelations = relations(category, ({ many, one }) => ({
   incomes: many(income),
-  expenses: many(expenses),
+  expenses: many(expense),
   user: one(user, {
     fields: [category.userId],
     references: [user.id],

@@ -28,7 +28,6 @@ export function BaseInput({
         </Label>
       )}
       <Input id={id} type={type} register={register} {...props} />
-      {error && <span className="text-destructive text-sm">{error}</span>}
     </div>
   );
 }

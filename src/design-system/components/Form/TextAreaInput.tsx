@@ -23,7 +23,6 @@ export function TextAreaInput({
         </Label>
       )}
       <Textarea id={id} {...props} />
-      {error && <span className="text-destructive text-sm">{error}</span>}
     </div>
   );
 }

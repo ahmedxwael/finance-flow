@@ -8,7 +8,7 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { expenses } from "./expense";
+import { expense } from "./expense";
 import { income } from "./income";
 import { user } from "./user";
 
@@ -60,5 +60,5 @@ export const accountRelations = relations(account, ({ one, many }) => ({
     references: [user.id],
   }),
   incomes: many(income),
-  expenses: many(expenses),
+  expenses: many(expense),
 }));

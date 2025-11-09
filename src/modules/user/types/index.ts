@@ -1,29 +1,33 @@
+import type { Currency } from "@/modules/transactions/types";
+import type { AsNumber } from "@/shared/types";
+
+export type UserTotalsResponse = {
+  data: {
+    totalIncomes: AsNumber | null;
+    totalExpenses: AsNumber | null;
+    balance: AsNumber;
+  } | null;
+  message: string;
+  error: Error | null;
+};
+
 export type User = {
-  id: string;
+  id: number;
+  name: string;
   email: string;
   password: string;
-  name: string;
   role: Role;
+  image: string;
+  provider: string;
   createdAt: Date;
   updatedAt: Date;
   balance: number;
+  totalIncomes: number;
+  totalExpenses: number;
+  totalSavings: number;
   currency: Currency;
   newUser: boolean;
-  incomesCount: number;
-  expensesCount: number;
-  records?: Record<string, unknown>[];
-  categories?: Record<string, unknown>[];
-  provider: string;
-  emailVerified: Date;
-  isVerified: boolean;
-  image: string;
+  emailVerified: boolean;
 };
 
 export type Role = "USER" | "ADMIN";
-
-export type Currency = "USD" | "POUND";
-
-export type UserSession = {
-  user: User;
-  expires: string;
-} | null;

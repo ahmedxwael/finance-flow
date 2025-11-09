@@ -1,5 +1,7 @@
 export * from "./BaseInput";
+export * from "./CheckboxInput";
 export * from "./EmailInput";
+export * from "./Form";
 export * from "./IntegerInput";
 export * from "./PasswordInput";
 export * from "./SelectInput";

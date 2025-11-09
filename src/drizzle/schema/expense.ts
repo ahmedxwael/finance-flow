@@ -12,7 +12,7 @@ import { category } from "./category";
 import { goal } from "./goal";
 import { user } from "./user";
 
-export const expenses = pgTable(
+export const expense = pgTable(
   "expenses",
   {
     id: serial("id").primaryKey(),
@@ -46,21 +46,21 @@ export const expenses = pgTable(
   })
 );
 
-export const expenseRelations = relations(expenses, ({ one }) => ({
+export const expenseRelations = relations(expense, ({ one }) => ({
   user: one(user, {
-    fields: [expenses.userId],
+    fields: [expense.userId],
     references: [user.id],
   }),
   account: one(account, {
-    fields: [expenses.accountId],
+    fields: [expense.accountId],
     references: [account.id],
   }),
   category: one(category, {
-    fields: [expenses.categoryId],
+    fields: [expense.categoryId],
     references: [category.id],
   }),
   goal: one(goal, {
-    fields: [expenses.goalId],
+    fields: [expense.goalId],
     references: [goal.id],
   }),
 }));
